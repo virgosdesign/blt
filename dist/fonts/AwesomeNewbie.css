@@ -1,0 +1,7 @@
+@font-face {
+	font-family: 'Awesome Newbie';
+	src: url('fonts/Awesome-Newbie.eot');
+	src: url('fonts/Awesome-Newbie.eot?#iefix') format('embedded-opentype'),
+		url('fonts/Awesome-Newbie.woff2') format('woff2'), url('fonts/Awesome-Newbie.woff') format('woff'),
+		url('fonts/Awesome-Newbie.ttf') format('truetype'), url('fonts/Awesome-Newbie.svg#Awesome Newbie') format('svg');
+}
