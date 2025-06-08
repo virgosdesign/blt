@@ -1,14 +1,11 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
-
+import { SITE } from './src/config.mjs';
 import { defineConfig } from 'astro/config';
-
-import tailwind from '@astrojs/tailwind';
-import sitemap from '@astrojs/sitemap';
+import { fileURLToPath } from 'url';
 import image from '@astrojs/image';
 import partytown from '@astrojs/partytown';
-
-import { SITE } from './src/config.mjs';
+import path from 'path';
+import sitemap from '@astrojs/sitemap';
+import tailwind from '@astrojs/tailwind';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -16,7 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
 	// Astro uses this full URL to generate your sitemap and canonical URLs in your final build
 	site: SITE.origin,
-	base: SITE.basePathname,
+	// base: SITE.basePathname,
 
 	output: 'static',
 
