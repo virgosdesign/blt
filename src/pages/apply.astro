@@ -30,10 +30,8 @@ const classes = {
 			<!-- Questions -->
 			<form
 				name="Employment Application"
-				action="/apply-success"
+				action="https://formspree.io/f/mrblkyry"
 				method="POST"
-				data-netlify="true"
-				netlify-honeypot="bot-field"
 				class="bg-white flex-col h-auto p-6 rounded-2xl shadow-md shadow-gray-500 md:gap-2 justify-center lg:items-center"
 			>
 				<!-- Honeypot -->
@@ -329,56 +327,82 @@ const classes = {
 </Layout>
 
 <script>
-	const backBtn = document.getElementById('back-btn');
-	const nextBtn = document.getElementById('next-btn');
-	const submitBtn = document.getElementById('submit-btn');
+const backBtn = document.getElementById('back-btn');
+const nextBtn = document.getElementById('next-btn');
+const submitBtn = document.getElementById('submit-btn');
+const employmentForm = document.querySelector('form[name="Employment Application"]');
+const formEl = employmentForm instanceof HTMLFormElement ? employmentForm : null;
 
-	(function () {
-		let currentCard = document.getElementsByClassName('active')[0];
-		if (currentCard.hasAttribute('data-default')) {
-			backBtn.setAttribute('disabled', '');
-		}
-	})();
+(function () {
+	let currentCard = document.getElementsByClassName('active')[0];
+	if (currentCard.hasAttribute('data-default')) {
+		backBtn.setAttribute('disabled', '');
+	}
+})();
 
-	backBtn.addEventListener('click', () => {
-		let currentCard = document.getElementsByClassName('active')[0];
-		let previousCard = currentCard.previousElementSibling;
-		if (previousCard.hasAttribute('data-default')) {
-			backBtn.setAttribute('disabled', '');
+backBtn.addEventListener('click', () => {
+	let currentCard = document.getElementsByClassName('active')[0];
+	let previousCard = currentCard.previousElementSibling;
+	if (previousCard.hasAttribute('data-default')) {
+		backBtn.setAttribute('disabled', '');
+	}
+	if (currentCard.classList.contains('final')) {
+		if (nextBtn.classList.contains('hidden')) {
+			nextBtn.classList.remove('hidden');
 		}
-		if (currentCard.classList.contains('final')) {
-			if (nextBtn.classList.contains('hidden')) {
-				nextBtn.classList.remove('hidden');
+		if (!submitBtn.classList.contains('hidden')) {
+			submitBtn.classList.add('hidden');
+		}
+	}
+	if (previousCard != null) {
+		currentCard.classList.add('hidden');
+		currentCard.classList.remove('active');
+		previousCard.classList.add('active');
+		previousCard.classList.remove('hidden');
+	}
+});
+
+nextBtn.addEventListener('click', () => {
+	let currentCard = document.getElementsByClassName('active')[0];
+	let nextCard = currentCard.nextElementSibling;
+
+	if (currentCard.hasAttribute('data-default')) {
+		backBtn.removeAttribute('disabled');
+	}
+	if (nextCard.classList.contains('final')) {
+		nextBtn.classList.add('hidden');
+		submitBtn.classList.remove('hidden');
+	}
+	if (nextCard != null) {
+		currentCard.classList.add('hidden');
+		currentCard.classList.remove('active');
+		nextCard.classList.add('active');
+		nextCard.classList.remove('hidden');
+	}
+});
+
+// Redirect to /apply-success after successful submission
+if (formEl) {
+	formEl.addEventListener('submit', function (e) {
+		e.preventDefault();
+		const formData = new FormData(formEl);
+		fetch(formEl.action, {
+			method: 'POST',
+			body: formData,
+			headers: {
+				'Accept': 'application/json',
+			},
+		})
+		.then(response => {
+			if (response.ok) {
+				window.location.href = '/apply-success';
+			} else {
+				alert('There was a problem submitting your application. Please try again.');
 			}
-			if (!submitBtn.classList.contains('hidden')) {
-				submitBtn.classList.add('hidden');
-			}
-		}
-		if (previousCard != null) {
-			currentCard.classList.add('hidden');
-			currentCard.classList.remove('active');
-			previousCard.classList.add('active');
-			previousCard.classList.remove('hidden');
-		}
+		})
+		.catch(() => {
+			alert('There was a problem submitting your application. Please try again.');
+		});
 	});
-
-	nextBtn.addEventListener('click', () => {
-		console.log('next clicked');
-		let currentCard = document.getElementsByClassName('active')[0];
-		let nextCard = currentCard.nextElementSibling;
-
-		if (currentCard.hasAttribute('data-default')) {
-			backBtn.removeAttribute('disabled');
-		}
-		if (nextCard.classList.contains('final')) {
-			nextBtn.classList.add('hidden');
-			submitBtn.classList.remove('hidden');
-		}
-		if (nextCard != null) {
-			currentCard.classList.add('hidden');
-			currentCard.classList.remove('active');
-			nextCard.classList.add('active');
-			nextCard.classList.remove('hidden');
-		}
-	});
+}
 </script>
