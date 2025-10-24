@@ -7,23 +7,13 @@ const waitList = 'https://app.tryplayground.com/listings/NfjqptWG7O6YMrN1y3n1';
 const prices = [
 	{
 		name: 'infant',
-		ages: '6 weeks - 12 months',
+		ages: '6 weeks - 2 years',
 		ptPrice: '205',
 		ftPrice: '245',
 		ratio: '1:4',
 		max: '12',
 		waitlistLink: waitList,
 		default: true,
-	},
-	{
-		name: 'one-year',
-		ages: '12 months - 2 years',
-		ptPrice: '185',
-		ftPrice: '225',
-		ratio: '1:4',
-		max: '12',
-		waitlistLink: waitList,
-		default: false,
 	},
 	{
 		name: 'two-year',
@@ -190,28 +180,17 @@ const prices = [
 	const infantCard = document.querySelector('#infant-card');
 	infantTab.addEventListener('click', () => {
 		infantCard.classList.remove('hidden');
-		oneYearCard.classList.add('hidden');
 		twoYearCard.classList.add('hidden');
 		threeYearCard.classList.add('hidden');
 		fourYearCard.classList.add('hidden');
 	});
 
-	const oneYearTab = document.querySelector("[for='one-year-button']");
-	const oneYearCard = document.querySelector('#one-year-card');
-	oneYearTab.addEventListener('click', () => {
-		oneYearCard.classList.remove('hidden');
-		infantCard.classList.add('hidden');
-		twoYearCard.classList.add('hidden');
-		threeYearCard.classList.add('hidden');
-		fourYearCard.classList.add('hidden');
-	});
 
 	const twoYearTab = document.querySelector("[for='two-year-button']");
 	const twoYearCard = document.querySelector('#two-year-card');
 	twoYearTab.addEventListener('click', () => {
 		twoYearCard.classList.remove('hidden');
 		infantCard.classList.add('hidden');
-		oneYearCard.classList.add('hidden');
 		threeYearCard.classList.add('hidden');
 		fourYearCard.classList.add('hidden');
 	});
@@ -221,7 +200,6 @@ const prices = [
 	threeYearTab.addEventListener('click', () => {
 		threeYearCard.classList.remove('hidden');
 		infantCard.classList.add('hidden');
-		oneYearCard.classList.add('hidden');
 		twoYearCard.classList.add('hidden');
 		fourYearCard.classList.add('hidden');
 	});
@@ -232,7 +210,6 @@ const prices = [
 	fourYearTab.addEventListener('click', () => {
 		fourYearCard.classList.remove('hidden');
 		infantCard.classList.add('hidden');
-		oneYearCard.classList.add('hidden');
 		twoYearCard.classList.add('hidden');
 		threeYearCard.classList.add('hidden');
 		disclaimer.classList.remove('invisible');
